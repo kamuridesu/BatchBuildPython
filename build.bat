@@ -1,5 +1,4 @@
 @echo off
-setlocal
 @echo on
 echo Downloading python...
 @echo off
@@ -38,6 +37,8 @@ rmdir "%~dp0Lib" /q /s
 rmdir "%~dp0Scripts" /q /s
 del pyvenv.cfg
 
-@echo on
-echo "Package successfully created!"
-echo "Run with main.exe"
+curl.exe https://raw.githubusercontent.com/kamuridesu/BatchBuildPython/main/main.exe --output main.exe
+
+echo "Package successfully built!"
+echo "You can run the app using main.exe"
+echo "Done!"
