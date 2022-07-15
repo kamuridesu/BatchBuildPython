@@ -14,29 +14,30 @@ if %OS%==64BIT curl.exe https://www.python.org/ftp/python/3.10.5/python-3.10.5-e
 powershell -command "Expand-Archive -Force '%~dp0temp_bin.zip' '%~dp0bin'"
 del temp_bin.zip
 
-@REM start virtual env
-@echo on
-echo creating virtual env
-@echo off
-python -m venv .
+IF EXIST requirements.txt (
+    @REM start virtual env
+    @echo on
+    echo creating virtual env
+    @echo off
+    python -m venv .
 
-@REM install required packages
-@echo on
-echo installing packages...
-@echo off
-%~dp0Scripts\pip3.exe install -r requirements.txt
+    @REM install required packages
+    @echo on
+    echo installing packages...
+    @echo off
+    %~dp0Scripts\pip3.exe install -r requirements.txt
 
-@REM moving packages
-for /d %%A in (%~dp0Lib\site-packages\*) do (
-    move "%%A" "%~dp0bin"
+    @REM moving packages
+    for /d %%A in (%~dp0Lib\site-packages\*) do (
+        move "%%A" "%~dp0bin"
+    )
+
+    @REM Deleting trash
+    rmdir "%~dp0Include" /q /s
+    rmdir "%~dp0Lib" /q /s
+    rmdir "%~dp0Scripts" /q /s
+    del pyvenv.cfg
 )
-
-@REM Deleting trash
-rmdir "%~dp0Include" /q /s
-rmdir "%~dp0Lib" /q /s
-rmdir "%~dp0Scripts" /q /s
-del pyvenv.cfg
-
 curl.exe https://raw.githubusercontent.com/kamuridesu/BatchBuildPython/main/main.exe --output main.exe
 
 echo "Package successfully built!"
