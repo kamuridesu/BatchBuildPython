@@ -28,7 +28,6 @@ echo installing packages...
 %~dp0Scripts\pip3.exe install -r requirements.txt
 
 @REM moving packages
-dir %~dp0Lib\site-packages\*
 for /d %%A in (%~dp0Lib\site-packages\*) do (
     move "%%A" "%~dp0bin"
 )
