@@ -2,6 +2,7 @@
 @echo on
 echo Downloading python...
 @echo off
+cd $1
 
 @REM check system arch
 reg Query "HKLM\Hardware\Description\System\CentralProcessor\0" | find /i "x86" > NUL && set OS=32BIT || set OS=64BIT
