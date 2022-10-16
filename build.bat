@@ -39,7 +39,9 @@ IF EXIST requirements.txt (
     rmdir "Scripts" /q /s
     del pyvenv.cfg
 )
+
 if /I NOT "%2" == "noexe" curl.exe https://raw.githubusercontent.com/kamuridesu/BatchBuildPython/main/main.exe --output main.exe
+echo ..>> .\bin\python310._pth
 
 echo "Package successfully built!"
 echo "You can run the app using main.exe"
