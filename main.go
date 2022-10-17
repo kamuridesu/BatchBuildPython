@@ -13,7 +13,7 @@ func main() {
 	}
 	exPath := filepath.Dir(ex)
 	python_local_path := filepath.Join(filepath.Join(exPath, "bin"), "python.exe")
-	cmd := exec.Command("cmd.exe", "/c", python_local_path, "main.py")
+	cmd := exec.Command(python_local_path, "main.py")
 	cmd.Stdin = os.Stdin
 	cmd.Stdout = os.Stdout
 	cmd.Stderr = os.Stderr

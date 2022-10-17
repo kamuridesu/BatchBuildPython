@@ -40,9 +40,21 @@ IF EXIST requirements.txt (
     del pyvenv.cfg
 )
 
-if /I NOT "%2" == "noexe" curl.exe https://raw.githubusercontent.com/kamuridesu/BatchBuildPython/main/main.exe --output main.exe
+echo Package successfully built!
+
+echo Setting up variables
 echo ..>> .\bin\python310._pth
 
-echo "Package successfully built!"
-echo "You can run the app using main.exe"
-echo "Done!"
+if 
+echo Setting up tkinter
+for /f "delims=" %%a in ('python -c "import sys; print(chr(92).join(sys.executable.split(chr(92))[:-1]))"') do @set localPythonPath=%%a
+@REM echo %localPythonPath%
+ROBOCOPY %localPythonPath%\DLLs\ .\bin /E
+ROBOCOPY %localPythonPath%\Lib\tkinter .\bin\tkinter /E
+ROBOCOPY %localPythonPath%\tcl .\bin\tcl /E
+
+echo Downloading executable
+if /I NOT "%2" == "noexe" curl.exe https://raw.githubusercontent.com/kamuridesu/BatchBuildPython/main/main.exe --output main.exe
+
+echo You can run the app using main.exe
+echo Done!
